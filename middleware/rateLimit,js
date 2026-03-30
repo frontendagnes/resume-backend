@@ -1,0 +1,17 @@
+import rateLimit from 'express-rate-limit';
+
+// Ogólny limit dla całego API
+export const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minut
+  max: 100, // Limit 100 żądań z jednego IP na okno 15-minutowe
+  message: { message: "Zbyt wiele zapytań, spróbuj ponownie za 15 minut." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Bardzo ostry limit dla logowania i rejestracji
+export const authLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 godzina
+  max: 10, // Tylko 10 prób logowania/rejestracji na godzinę
+  message: { message: "Zbyt wiele prób logowania. Spróbuj ponownie za godzinę." },
+});
