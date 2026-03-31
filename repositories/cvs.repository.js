@@ -386,13 +386,19 @@ export const getCvLanguages = async (conn, cvId) => {
 export const saveLanguages = async (conn, cvId, languages) => {
   if (!languages?.length) return;
   for (const lang of languages) {
+    // Sprawdzamy oba warianty: lang.name (z frontu) LUB lang.language_name (z bazy)
+    const name = lang.name || lang.language_name;
+
     await conn.execute(
-      "INSERT INTO cv_languages (cv_id, language_name, level) VALUES (?, ?,?)",
-      [cvId, lang.name, lang.level],
+      "INSERT INTO cv_languages (cv_id, language_name, level) VALUES (?, ?, ?)",
+      [
+        cvId,
+        name ?? null, // Jeśli name jest undefined, wstaw null
+        lang.level ?? null,
+      ],
     );
   }
 };
-
 // --- CLONING FUNCTIONS ---
 export const cloneLinks = async (conn, oldCvId, newCvId) => {
   await conn.execute(
