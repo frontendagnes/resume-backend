@@ -413,3 +413,19 @@ export const cloneLanguages = async (conn, oldCvId, newCvId) => {
     [newCvId, oldCvId],
   );
 };
+// export const cloneLanguages = async (conn, oldCvId, newCvId) => {
+//   await conn.execute(
+//     `INSERT INTO cv_languages (
+//       cv_id,
+//       language_name,
+//       level
+//     )
+//     SELECT
+//       ?,
+//       language_name,
+//       level
+//     FROM cv_languages
+//     WHERE cv_id = ?`,
+//     [newCvId, oldCvId],
+//   );
+// };
