@@ -1,3 +1,4 @@
+// biome-ignore assist/source/organizeImports: imports are intentionally grouped by section
 import express from "express";
 import {
   getUserPreferences,
