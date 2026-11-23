@@ -56,6 +56,7 @@ export const login = async (req, res) => {
       role: user.role,
     });
   } catch (error) {
+    console.error("❌ BŁĄD W POST /login:", error);
     res.status(500).json({ message: "Błąd serwera podczas logowania." });
   }
 };
