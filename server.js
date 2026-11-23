@@ -14,24 +14,55 @@ import preferencesRoute from "./routes/preferencesRoute.js";
 // Moduł 'fs/promises' wymaga jawnego importu, nawet jeśli jest używany w CommonJS
 import fs from "fs/promises";
 import * as dotenv from "dotenv";
+
 dotenv.config();
+
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+
+app.set("trust proxy", 1);
+
+const allowedOrigins = [
+  "http://localhost:3500",
+  "http://localhost:4173",
+  "https://www.resumecreator.xce.pl",
+  "https://resumecreator.xce.pl",
+];
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3500",
-      "http://localhost:4173",
-      "https://www.resumecreator.xce.pl",
-      "https://www.resumecreator.xce.pl",
-    ],
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Niedozwolone źródło CORS"));
+    },
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   }),
 );
+
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());
+
+// dotenv.config();
+// const app = express();
+// const PORT = process.env.PORT || 5000;
+
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:3500",
+//       "http://localhost:4173",
+//       "https://resumecreator.xce.pl",
+//       "https://www.resumecreator.xce.pl",
+//     ],
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     credentials: true,
+//   }),
+// );
+// app.use("/uploads", express.static("uploads"));
+// app.use(express.json());
 
 // ====================================================================
 // ROUTY KONFIGURACJI (Dostępne tylko, gdy brak config.json)
