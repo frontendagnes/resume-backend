@@ -20,7 +20,12 @@ const PORT = 5000;
 
 app.use(
   cors({
-    origin: ["http://localhost:3500", "http://localhost:4173"],
+    origin: [
+      "http://localhost:3500",
+      "http://localhost:4173",
+      "https://www.resumecreator.xce.pl",
+      "https://www.resumecreator.xce.pl",
+    ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   }),
