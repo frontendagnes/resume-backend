@@ -1,5 +1,4 @@
 // server.js
-
 // 1. Zmiana składni importu
 import express from "express";
 import cors from "cors";
@@ -44,25 +43,6 @@ app.use(
 
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());
-
-// dotenv.config();
-// const app = express();
-// const PORT = process.env.PORT || 5000;
-
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:3500",
-//       "http://localhost:4173",
-//       "https://resumecreator.xce.pl",
-//       "https://www.resumecreator.xce.pl",
-//     ],
-//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     credentials: true,
-//   }),
-// );
-// app.use("/uploads", express.static("uploads"));
-// app.use(express.json());
 
 // ====================================================================
 // ROUTY KONFIGURACJI (Dostępne tylko, gdy brak config.json)
@@ -139,7 +119,6 @@ async function startServer() {
   app.use("/api", cvRoutes);
   app.use("/api/images", imageRoutes); // Wszystkie ruty obrazów będą pod /api/images/...
   app.use("/api/preferences", preferencesRoute);
-  app.use("/uploads", express.static("uploads"));
   app.use("/api/personal", personalRoutes);
 
   app.listen(PORT, () => {

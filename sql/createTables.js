@@ -16,7 +16,8 @@ export const createUsersTableSQL = `
 export const createTableImagesSQL = `CREATE TABLE IF NOT EXISTS images (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    image_path VARCHAR(255) NOT NULL,
+    image_path VARCHAR(1000) NOT NULL,
+    cloudinary_public_id VARCHAR(255) NULL,
     uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`;
@@ -130,7 +131,6 @@ export const createTableExperienceSkillsSQL = `CREATE TABLE  IF NOT EXISTS exper
     FOREIGN KEY (experience_id) REFERENCES experience(id) ON DELETE CASCADE,
     FOREIGN KEY (skill_id) REFERENCES skills(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`;
-
 
 // -- ========================
 // -- 8️⃣ EDUCATION
